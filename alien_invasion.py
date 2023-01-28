@@ -29,18 +29,26 @@ class AlienInvasion:
     def run_game(self):
         """Loop for the game"""
         while True:
-            # monitor in the player wants to quit
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            self._checks_events()
+            self._update_screen()
 
-            # bgcolor
-            self.screen.fill(self.settings.bg_color)
+    def _checks_events(self):
+        """Respond to kepresses adn mouse events"""
+        # monitor in the player wants to quit
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
-            # position for the ship
-            self.ship.blitme()
-            # screen
-            pygame.display.flip()
+    def _update_screen(self):
+        """Update images, flip to the new screen"""
+        # bgcolor
+        self.screen.fill(self.settings.bg_color)
+
+        # position for the ship
+        self.ship.blitme()
+            
+        # screen
+        pygame.display.flip()
 
 if __name__ == '__main__':
     # make a game instance, run the game
