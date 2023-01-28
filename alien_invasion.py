@@ -5,6 +5,9 @@ import pygame
 # import the settings
 from settings import Settings
 
+# import ship
+from ship import Ship
+
 class AlienInvasion:
     """manage game assets and behavior"""
 
@@ -20,6 +23,9 @@ class AlienInvasion:
         self.bg_color = (230, 230, 230)
         pygame.display.set_caption("Alien Invasion")
 
+        # creating instance for for class Ship
+        self.ship = Ship(self)
+
     def run_game(self):
         """Loop for the game"""
         while True:
@@ -28,7 +34,11 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
+            # bgcolor
             self.screen.fill(self.settings.bg_color)
+
+            # position for the ship
+            self.ship.blitme()
             # screen
             pygame.display.flip()
 
