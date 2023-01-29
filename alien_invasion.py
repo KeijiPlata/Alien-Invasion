@@ -1,4 +1,6 @@
 # Alien Invasion
+
+# importing the packages needed
 import sys
 import pygame
 
@@ -38,6 +40,11 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            # checks for keypress
+            elif event.type == pygame.KEYDOWN:
+                if event.key ==  pygame.K_RIGHT:
+                    # move the ship to the right
+                    self.ship.rect.x += 1
 
     def _update_screen(self):
         """Update images, flip to the new screen"""
