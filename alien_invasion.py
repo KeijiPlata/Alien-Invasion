@@ -32,6 +32,7 @@ class AlienInvasion:
         """Loop for the game"""
         while True:
             self._checks_events()
+            self.ship.update()
             self._update_screen()
 
     def _checks_events(self):
@@ -44,7 +45,12 @@ class AlienInvasion:
             elif event.type == pygame.KEYDOWN:
                 if event.key ==  pygame.K_RIGHT:
                     # move the ship to the right
-                    self.ship.rect.x += 1
+                    self.ship.moving_right = True
+            elif event.type == pygame.KEYUP:
+                if event.key ==  pygame.K_RIGHT:
+                    # if the user release his finger from the key
+                    # stop moving
+                    self.ship.moving_right = False
 
     def _update_screen(self):
         """Update images, flip to the new screen"""

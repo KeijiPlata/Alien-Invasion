@@ -17,6 +17,14 @@ class Ship:
         # position of the ship
         self.rect.midbottom = self.screen_rect.midbottom
 
+        # movement flag
+        self.moving_right = False
+
+    def update(self):
+        """Update the ships position based ont the movement_right attribute"""
+        if self.moving_right:
+            self.rect.x += 1
+
     def blitme(self):
         """Draw the ship at its current location"""
         self.screen.blit(self.image, self.rect)
