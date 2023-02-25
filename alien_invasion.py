@@ -9,6 +9,7 @@ from settings import Settings
 
 # import ship
 from ship import Ship
+from bullet import Bullet
 
 class AlienInvasion:
     """manage game assets and behavior"""
@@ -31,12 +32,14 @@ class AlienInvasion:
 
         # creating instance for for class Ship
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """Loop for the game"""
         while True:
             self._checks_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
 
     def _checks_events(self):
@@ -62,6 +65,14 @@ class AlienInvasion:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+    
+    def _fire_bullet(self):
+        """Create a new bullet and add it to bullet group """
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
 
     def _check_keyup_events(self, event):
         """ Respond to key release """
@@ -81,6 +92,10 @@ class AlienInvasion:
 
         # position for the ship
         self.ship.blitme()
+
+        # draw the group bullets
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
             
         # screen
         pygame.display.flip()
