@@ -39,17 +39,23 @@ class AlienInvasion:
         while True:
             self._checks_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
+   
 
-            # we need to delete the bullets so it will not consume ram
-            # length of the bullets in copy() method
-            # if the bullets is outside the rect, it will delete that bullet
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+    def _update_bullets(self):
+        """updating position of bullets and delete the old ones """
+        # updates the bullet position
+        self.bullets.update()
+        
+        # we need to delete the bullets so it will not consume ram
+        # length of the bullets in copy() method
+        # if the bullets is outside the rect, it will delete that bullet
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
             print(len(self.bullets))
-
+        
     def _checks_events(self):
         """Respond to kepresses adn mouse events"""
         # monitor in the player wants to quit
@@ -78,8 +84,10 @@ class AlienInvasion:
     
     def _fire_bullet(self):
         """Create a new bullet and add it to bullet group """
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        # the if statement limits the bullets to 3
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
 
     def _check_keyup_events(self, event):
