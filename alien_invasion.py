@@ -42,8 +42,37 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """Create the fleet of aliens"""
-        # make an alien
+        # get the alien width
         alien = Alien(self)
+        alien_width = alien.rect.width
+        
+        # to know the available space, we need to get the width of the 
+        # screen and the rect of the alien
+        # since we need a margin in both side of screen, we have to minus it
+        # to the screen size. the margin size is one alien width
+        
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+
+        # to determine the number of aliens we can fit in the screen
+        # we havve to get the available space divide (// floor division)
+        # 2 * alien width because we need space between the alien ships
+        # so we need the twice of the width
+        number_aliens_x = available_space_x // (2 * alien_width)
+
+        # we will create new alien base on how many number of alien is
+        for alien_number in range(number_aliens_x):
+            # create an alien and place it in row
+            alien = Alien(self)
+            # alien_width is the size of the alien. (2 * alien_width) is the  
+            # margin left and right for the ship and we need to 
+            # multiply by the alien_number to know where he can be placed(position).
+            alien.x = alien_width + 2 * alien_width * alien_number
+
+            # place to the rect
+            alien.rect.x = alien.x
+
+            # add to the group
+            self.aliens.add(alien)
 
         # add to the group
         self.aliens.add(alien)
