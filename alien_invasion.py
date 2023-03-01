@@ -10,6 +10,7 @@ from settings import Settings
 # import ship
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class AlienInvasion:
     """manage game assets and behavior"""
@@ -32,7 +33,20 @@ class AlienInvasion:
 
         # creating instance for for class Ship
         self.ship = Ship(self)
+
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        # create alien
+        self._create_fleet()
+
+    def _create_fleet(self):
+        """Create the fleet of aliens"""
+        # make an alien
+        alien = Alien(self)
+
+        # add to the group
+        self.aliens.add(alien)
 
     def run_game(self):
         """Loop for the game"""
@@ -112,6 +126,9 @@ class AlienInvasion:
         # draw the group bullets
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+
+        # draw the aliens to the screen
+        self.aliens.draw(self.screen)
             
         # screen
         pygame.display.flip()
