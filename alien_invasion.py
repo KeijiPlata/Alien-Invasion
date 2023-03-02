@@ -44,7 +44,7 @@ class AlienInvasion:
         """Create the fleet of aliens"""
         # get the alien width
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         
         # to know the available space, we need to get the width of the 
         # screen and the rect of the alien
@@ -59,16 +59,34 @@ class AlienInvasion:
         # so we need the twice of the width
         number_aliens_x = available_space_x // (2 * alien_width)
 
+        # get the ship height
+        ship_height = self.ship.rect.height
+
+        # to know the row, we need to know first the available height
+        # to calculate it, first we need to get the screen height. we place
+        # margin to the top and bottom of the screen according to the height 
+        # of the alien. 1 alien height to the top and 2 alien height from the
+        # bottom which makes it 3, then we need also to get the height of our 
+        # ship and minus it to the screen height
+        available_space_y = (self.settings.screen_height - (3 * alien_height)
+                             - ship_height)
+        
+        # to get the number of rows, we need to divide the available space
+        # to the actual alien height and another alien height for the margin
+        # below it which makes it 2.
+        number_rows = available_space_y // (2*alien_height)
+
         # we will create new alien base on how many number of alien is
-        for alien_number in range(number_aliens_x):
-            self._create_alien(alien_number)
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
            
 
-    def _create_alien(self, alien_number):
+    def _create_alien(self, alien_number, row_number):
         """create an alien and place it in a row"""
          # create an alien and place it in row
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         # alien_width is the size of the alien. (2 * alien_width) is the  
         # margin left and right for the ship and we need to 
         # multiply by the alien_number to know where he can be placed(position).
@@ -76,6 +94,11 @@ class AlienInvasion:
 
         # place to the rect
         alien.rect.x = alien.x
+
+        # starts with the actual height of alien. We put two
+        # margin so we multiply by 2 alien height, to define the position
+        # we multipy it by the which number of row
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
 
         # add to the group
         self.aliens.add(alien)
