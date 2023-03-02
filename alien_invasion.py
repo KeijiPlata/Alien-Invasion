@@ -61,22 +61,25 @@ class AlienInvasion:
 
         # we will create new alien base on how many number of alien is
         for alien_number in range(number_aliens_x):
-            # create an alien and place it in row
-            alien = Alien(self)
-            # alien_width is the size of the alien. (2 * alien_width) is the  
-            # margin left and right for the ship and we need to 
-            # multiply by the alien_number to know where he can be placed(position).
-            alien.x = alien_width + 2 * alien_width * alien_number
+            self._create_alien(alien_number)
+           
 
-            # place to the rect
-            alien.rect.x = alien.x
+    def _create_alien(self, alien_number):
+        """create an alien and place it in a row"""
+         # create an alien and place it in row
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        # alien_width is the size of the alien. (2 * alien_width) is the  
+        # margin left and right for the ship and we need to 
+        # multiply by the alien_number to know where he can be placed(position).
+        alien.x = alien_width + 2 * alien_width * alien_number
 
-            # add to the group
-            self.aliens.add(alien)
+        # place to the rect
+        alien.rect.x = alien.x
 
         # add to the group
         self.aliens.add(alien)
-
+        
     def run_game(self):
         """Loop for the game"""
         while True:
