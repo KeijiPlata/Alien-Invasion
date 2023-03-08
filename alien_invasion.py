@@ -102,6 +102,20 @@ class AlienInvasion:
 
         # add to the group
         self.aliens.add(alien)
+
+    def _check_fleet_edges(self):
+        """respond if the alien reach the edge"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        """drop the entire fleet and change direction"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+
         
     def run_game(self):
         """Loop for the game"""
@@ -113,9 +127,14 @@ class AlienInvasion:
             self._update_screen()
    
     def _update_aliens(self):
-        """update the position of aliens fleet"""
+        """
+        update the position of aliens fleet and checks if 
+        the alien is in the edge of the screen
+        """
+        self._check_fleet_edges()
         self.aliens.update()
         
+
     def _update_bullets(self):
         """updating position of bullets and delete the old ones """
         # updates the bullet position
