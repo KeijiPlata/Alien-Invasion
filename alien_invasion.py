@@ -49,19 +49,22 @@ class AlienInvasion:
     def _ship_hit(self):
         """respond to the ship being hit"""
 
-        # decrement ship left
-        self.stats.ship_left -= 1
+        if self.stats.ship_left > 0:
+            # decrement ship left
+            self.stats.ship_left -= 1
 
-        # get rid of any remaining aliens and bullets
-        self.aliens.empty()
-        self.bullets.empty()
+            # get rid of any remaining aliens and bullets
+            self.aliens.empty()
+            self.bullets.empty()
 
-        # create new fleet and center the ship
-        self._create_fleet()
-        self.ship.center_ship()
+            # create new fleet and center the ship
+            self._create_fleet()
+            self.ship.center_ship()
 
-        # pause
-        sleep(0.5)
+            # pause
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
 
 
@@ -128,6 +131,15 @@ class AlienInvasion:
         # add to the group
         self.aliens.add(alien)
 
+    def _check_aliens_bottom(self):
+        """check if the alien reach the bottom of the screen"""
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                # the ship is hit
+                self._ship_hit()
+                break
+
     def _check_fleet_edges(self):
         """respond if the alien reach the edge"""
         for alien in self.aliens.sprites():
@@ -146,9 +158,12 @@ class AlienInvasion:
         """Loop for the game"""
         while True:
             self._checks_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
+
             self._update_screen()
    
     def _update_aliens(self):
@@ -162,6 +177,8 @@ class AlienInvasion:
         # look for alien and ship collisions
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()
+
+        self._check_aliens_bottom()
         
 
     def _update_bullets(self):
