@@ -14,6 +14,7 @@ from ship import Ship
 from bullet import Bullet
 from game_stats import GameStats    
 from alien import Alien
+from button import Button
 
 class AlienInvasion:
     """manage game assets and behavior"""
@@ -33,6 +34,9 @@ class AlienInvasion:
 
         # create an instance to store game
         self.stats = GameStats(self)
+
+        # make the play button
+        self.play_button = Button(self, "Play")
 
         self.bg_color = (230, 230, 230)
         pygame.display.set_caption("Alien Invasion")
@@ -265,6 +269,10 @@ class AlienInvasion:
 
         # draw the aliens to the screen
         self.aliens.draw(self.screen)
+
+        # draw the button if the game is inactive
+        if not self.stats.game_active:
+            self.play_button.draw_button()
             
         # screen
         pygame.display.flip()
