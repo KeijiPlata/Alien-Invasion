@@ -25,7 +25,7 @@ class Button:
         self.msg_img = self.font.render(msg, True, self.text_color, 
                                         self.button_color)
         self.msg_img_rect = self.msg_img.get_rect()
-        self.msg_image_rect.center = self.rect.center
+        self.msg_img_rect.center = self.rect.center
 
     def draw_button(self):
         # draw blank button and then draw message
