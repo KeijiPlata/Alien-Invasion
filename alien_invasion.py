@@ -226,25 +226,29 @@ class AlienInvasion:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
 
+    def _start_game(self):
+         """reset the game and start it again"""
+         self.stats.game_active = True
+
+         #reset game stats
+         self.stats.reset_stats()
+
+         # delete remaining aliens and bullets
+         self.aliens.empty()
+         self.bullets.empty()
+
+         # create new alient and center the ship
+         self._create_fleet()
+         self.ship.center_ship()
+
+         # hide the mouse cursor
+         pygame.mouse.set_visible(False)
+
     def _check_play_button(self, mouse_pos):
         """Start an new game when player clicks play"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
-            self.stats.game_active = True
-
-            #reset game stats
-            self.stats.reset_stats()
-
-            # delete remaining aliens and bullets
-            self.aliens.empty()
-            self.bullets.empty()
-
-            # create new alient and center the ship
-            self._create_fleet()
-            self.ship.center_ship()
-
-            # hide the mouse cursor
-            pygame.mouse.set_visible(False)
+            self._start_game()
 
                
 
@@ -260,6 +264,11 @@ class AlienInvasion:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key == pygame.K_p:
+            # start the game and if the game is started,
+            # it cannot be pushed again unless false
+            if not self.stats.game_active:
+                self._start_game()
     
     def _fire_bullet(self):
         """Create a new bullet and add it to bullet group """
