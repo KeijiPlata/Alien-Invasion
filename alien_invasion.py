@@ -197,7 +197,6 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
-            print(len(self.bullets))
 
         self._check_bullet_alien_collisions()
 
@@ -210,6 +209,7 @@ class AlienInvasion:
          if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
         
     def _checks_events(self):
         """Respond to kepresses adn mouse events"""
