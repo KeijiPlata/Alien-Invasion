@@ -38,6 +38,9 @@ class AlienInvasion:
         # make the play button
         self.play_button = Button(self, "Play")
 
+        # make the difficulty buttons
+        self._difficulty_buttons()
+
         self.bg_color = (230, 230, 230)
         pygame.display.set_caption("Alien Invasion")
 
@@ -49,6 +52,26 @@ class AlienInvasion:
 
         # create alien
         self._create_fleet()
+
+    def _difficulty_buttons(self):
+        """create difficulty buttons"""
+        self.easy_button = Button(self, "Easy")
+        self.medium_button = Button(self, "Medium")
+        self.hard_button = Button(self, "Hard")
+
+        self.easy_button.rect.top = (
+            self.play_button.rect.top + 1.5*self.play_button.rect.height)
+        self.easy_button._update_msg_position()
+
+        self.medium_button.rect.top = (
+            self.easy_button.rect.top + 1.5*self.easy_button.rect.height)
+        self.medium_button._update_msg_position()
+
+        self.hard_button.rect.top = (
+            self.medium_button.rect.top + 1.5*self.medium_button.rect.height)
+        self.hard_button._update_msg_position()
+
+
 
     def _ship_hit(self):
         """respond to the ship being hit"""
@@ -308,6 +331,9 @@ class AlienInvasion:
         # draw the button if the game is inactive
         if not self.stats.game_active:
             self.play_button.draw_button()
+            self.easy_button.draw_button()
+            self.medium_button.draw_button()
+            self.hard_button.draw_button()
             
         # screen
         pygame.display.flip()
