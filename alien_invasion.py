@@ -71,6 +71,19 @@ class AlienInvasion:
             self.medium_button.rect.top + 1.5*self.medium_button.rect.height)
         self.hard_button._update_msg_position()
 
+    def _check_difficulty_button(self, mouse_pos):
+        """when the user click the button, change difficulty"""
+        easy_button_clicked = self.easy_button.rect.collidepoint(mouse_pos)
+        medium_button_clicked = self.medium_button.rect.collidepoint(mouse_pos)
+        hard_button_clicked = self.hard_button.rect.collidepoint(mouse_pos)
+
+        if easy_button_clicked:
+            self.settings.difficulty_level = "easy"
+        elif medium_button_clicked:
+            self.settings.difficulty_level = "medium"
+        elif hard_button_clicked:
+            self.settings.difficulty_level = "hard"
+
 
 
     def _ship_hit(self):
@@ -248,6 +261,7 @@ class AlienInvasion:
             elif event.type == pygame.MOUSEBUTTONDOWN: 
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
+                self._check_difficulty_button(mouse_pos)
 
     def _start_game(self):
          """reset the game and start it again"""
