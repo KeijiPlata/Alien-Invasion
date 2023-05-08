@@ -15,6 +15,7 @@ from bullet import Bullet
 from game_stats import GameStats    
 from alien import Alien
 from button import Button
+from scoreboard import Scoreboard
 
 class AlienInvasion:
     """manage game assets and behavior"""
@@ -34,6 +35,9 @@ class AlienInvasion:
 
         # create an instance to store game
         self.stats = GameStats(self)
+
+        # create instance for game scoreboard
+        self.sb = Scoreboard(self)
 
         # make the play button
         self.play_button = Button(self, "Play")
@@ -341,6 +345,9 @@ class AlienInvasion:
 
         # draw the aliens to the screen
         self.aliens.draw(self.screen)
+
+        # draw the score information on top right
+        self.sb.show_score()
 
         # draw the button if the game is inactive
         if not self.stats.game_active:
