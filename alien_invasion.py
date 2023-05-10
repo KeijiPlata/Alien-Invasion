@@ -245,6 +245,13 @@ class AlienInvasion:
          # refactor the code 
          collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)
+         
+         # if bullet collide with the alien, it will store the score
+         
+         if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+            self.sb.prep_score()
         
          if not self.aliens:
             self.bullets.empty()
@@ -291,6 +298,9 @@ class AlienInvasion:
         if button_clicked and not self.stats.game_active:
             self.settings.initialize_dynamic_settings()
             self._start_game()
+
+            # restart the score
+            self.stats.reset_stats()
 
                
 

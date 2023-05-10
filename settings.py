@@ -41,6 +41,9 @@ class Settings:
     def initialize_dynamic_settings(self):
         """Initialize settings that change throughout the game"""
 
+        # scoring
+        self.alien_points = 50
+
         if self.difficulty_level == 'medium':
             self.ship_limit = 3
             self.ship_speed = 1.5
