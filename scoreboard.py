@@ -19,7 +19,15 @@ class Scoreboard:
 
     def prep_score(self):
         """prepare the score image"""
-        score_str = str(self.stats.score)
+        # when you pass negative number to second argument to the round function, 
+        # it will round the value to the nearest 10, 100, 1000 and so on 
+        rounded_score = round(self.stats.score, -1)
+
+        # it is a way of formatting to insert commas into numbers when converting
+        # numerical value to a string
+        score_str = "{:,}".format(rounded_score)
+
+        
         self.score_image = self.font.render(score_str, True, self.text_color,
                                             self.settings.bg_color)
 
