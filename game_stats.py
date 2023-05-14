@@ -17,3 +17,6 @@ class GameStats:
         self.ship_left = self.settings.ship_limit
         self.score = 0
         
+        #  initialize the level
+        self.level = 1
+        

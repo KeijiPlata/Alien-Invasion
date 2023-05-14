@@ -258,6 +258,8 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+            self.stats.level += 1
+            self.sb.prep_level()
         
     def _checks_events(self):
         """Respond to kepresses adn mouse events"""
@@ -302,6 +304,10 @@ class AlienInvasion:
 
             # restart the score
             self.stats.reset_stats()
+
+            # prepare the level and score when button clicked
+            self.sb.prep_level()
+            self.sb.prep_score()
 
                
 
