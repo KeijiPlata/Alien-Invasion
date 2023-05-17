@@ -3,6 +3,7 @@
 # importing the packages needed
 import sys
 import pygame
+from save_read_highscore import ReadWriteHs
 
 from time import sleep
 
@@ -35,6 +36,9 @@ class AlienInvasion:
 
         # create an instance to store game
         self.stats = GameStats(self)
+
+        # create an instance for reading and writing text files
+        self.rwhs = ReadWriteHs(self)
 
         # create instance for game scoreboard
         self.sb = Scoreboard(self)
@@ -267,6 +271,7 @@ class AlienInvasion:
         # monitor in the player wants to quit
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.rwhs.write_highscore()
                 sys.exit()
             # checks for keypress
             elif event.type == pygame.KEYDOWN:
@@ -322,6 +327,7 @@ class AlienInvasion:
             # move the shipt to the left
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
+            self.rwhs.write_highscore()
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
