@@ -6,6 +6,7 @@ class ReadWriteHs:
         self.ai_game = ai_game
         self.stats = ai_game.stats
         self._highscore_file = 'highscore.txt'
+        self.read_highscore()
 
     def write_highscore(self):
         """ write highscore to text file """
@@ -15,5 +16,5 @@ class ReadWriteHs:
     def read_highscore(self):
         """ read highscore from text file """
         with open(self._highscore_file, "r") as file_object:
-            return int(file_object.read())
+            self.stats.high_score = int(file_object.read())
 
