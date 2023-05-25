@@ -12,11 +12,18 @@ class Scoreboard:
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
         self.stats = ai_game.stats
-        self.prep_ships()
 
         # font settings
         self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 48)
+
+        # prep image
+        self.prep_image()
+
+    def prep_image(self):
+        """Prepare images required in alien invasion"""
+        # prepare the ship 
+        self.prep_ships()
 
         # prepare the score image
         self.prep_score()
@@ -26,6 +33,7 @@ class Scoreboard:
 
         # prepare the level
         self.prep_level()
+
 
     def prep_ships(self):
         """show how many lives you have left"""
