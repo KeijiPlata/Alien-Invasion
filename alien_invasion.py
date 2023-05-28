@@ -318,10 +318,8 @@ class AlienInvasion:
             # restart the score
             self.stats.reset_stats()
 
-            # prepare the level and score when button clicked
-            self.sb.prep_level()
-            self.sb.prep_score()
-            self.sb.prep_ships()
+            # prepare the level, ship and score when button clicked
+            self.sb.prep_image()
 
                
 
